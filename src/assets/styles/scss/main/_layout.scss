@@ -1,0 +1,78 @@
+.app-admin-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.app-admin-container {
+  max-width: 100%;
+  height: 100vh;
+
+  .rightside-content-hold {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0.333333rem;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 450px;
+  }
+}
+
+.main-content-wrap {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  float: right;
+  height: 100vh;
+  transition: width $sidebarTrnTime $transitionTiming;
+  &.ps > .ps__rail-y {
+    z-index: 9999;
+  }
+}
+
+.fixed-topbar {
+  .rightside-content-hold {
+    overflow: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 64px;
+  }
+}
+
+.layout-intransition {
+  .branding {
+    display: none !important;
+  }
+
+  .app-user-controls,
+  .app-user-name {
+    opacity: 0 !important;
+  }
+}
+
+.app-admin-container.sidebar-full.navigation-top {
+  .sidebar-panel {
+    left: 0;
+  }
+}
+.app-admin-container.navigation-top {
+  .rightside-content-hold {
+    max-width: 1400px;
+    min-width: 70%;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 48px;
+  }
+}
+
+@media (max-width: 959px) {
+  .app-admin-container.sidebar-full {
+    .main-content-wrap {
+      width: 100% !important;
+    }
+  }
+}

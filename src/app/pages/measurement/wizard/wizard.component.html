@@ -1,0 +1,252 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">{{ "MEASUREMENT" | translate }}</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-vertical-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="initialStepFormGroup">
+        <form [formGroup]="initialStepFormGroup" class="step">
+          <ng-template matStepLabel>Введіть основну інфморацію</ng-template>
+          <div class="first-step">
+            <mat-form-field>
+              <mat-label>Модель лампи</mat-label>
+              <mat-select name="lampId" formControlName="lampId">
+                <mat-option
+                  *ngFor="let lamp of lampSelector$ | async"
+                  [value]="lamp._id"
+                >
+                  {{ lamp.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Модель вимірювача</mat-label>
+              <mat-select name="radiometerId" formControlName="radiometerId">
+                <mat-option
+                  *ngFor="let radiometer of radiometerSelector$ | async"
+                  [value]="radiometer._id"
+                >
+                  {{ radiometer.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                name="location"
+                formControlName="location"
+                placeholder="Локація"
+              />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                [ngxMatDatetimePicker]="picker"
+                placeholder="Дата"
+                formControlName="date"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" class="step-button">
+            <button mat-raised-button color="primary" matStepperNext>
+              Далі
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="firstStepFormGroup">
+        <form [formGroup]="firstStepFormGroup" class="step">
+          <ng-template matStepLabel
+            >Введіть дані для вертикальної площини</ng-template
+          >
+          <div class="first-step">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="A1"
+                formControlName="step1_A1"
+                type="number"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="B1"
+                formControlName="step1_B1"
+                type="number"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <div class="step-button">
+              <button mat-raised-button color="primary" matStepperNext>
+                Далі
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondStepFormGroup">
+        <form [formGroup]="secondStepFormGroup" class="step">
+          <ng-template matStepLabel
+            >Введіть дані для горизонтальної площини</ng-template
+          >
+          <div class="second-step">
+            <div class="second-step_row">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="A1"
+                  formControlName="step2_A1"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="B1"
+                  formControlName="step2_B1"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="C1"
+                  formControlName="step2_C1"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="second-step_row">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="A2"
+                  formControlName="step2_A2"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="B2"
+                  formControlName="step2_B2"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="C2"
+                  formControlName="step2_C2"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="second-step_row">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="A3"
+                  formControlName="step2_A3"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="B3"
+                  formControlName="step2_B3"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="C3"
+                  formControlName="step2_C3"
+                  type="number"
+                  required
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" class="step-button">
+            <button mat-raised-button color="accent" matStepperPrevious>
+              Назад
+            </button>
+            <span fxFlex="8px"></span>
+            <button mat-raised-button color="primary" matStepperNext>
+              Далі
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [editable]="false">
+        <ng-template matStepLabel>Результат</ng-template>
+        <div class="step">
+          <div class="measure-button">
+            <button mat-raised-button color="primary" (click)="generate()">
+              Розрахувати
+            </button>
+          </div>
+          <app-generated-view
+            class="tab-group"
+            *ngIf="((generatedResultSelector$ | async) && openModel)"
+          ></app-generated-view>
+          <div fxLayout="row" class="step-button">
+            <button mat-raised-button color="accent" matStepperPrevious>
+              Назад
+            </button>
+            <span fxFlex="8px"></span>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="resetForms(); stepper.reset()"
+            >
+              Очистити форму
+            </button>
+            <span fxFlex="8px"></span>
+            <button
+              mat-raised-button
+              color="primary"
+              disabled="{{ !(generatedResultSelector$ | async) }}"
+              (click)="saveLocally()"
+            >
+              Зберегти локально
+            </button>
+            <span fxFlex="8px"></span>
+            <button
+              mat-raised-button
+              color="primary"
+              disabled="{{ !(generatedResultSelector$ | async) }}"
+              (click)="saveRemotely()"
+            >
+              Зберегти на сервісі
+            </button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,1 @@
+export * as lampModel from './store';

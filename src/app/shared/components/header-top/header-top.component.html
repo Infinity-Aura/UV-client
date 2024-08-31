@@ -1,0 +1,82 @@
+<div class="header-topnav mat-elevation-z2">
+  <div class="container">
+    <div class="topnav">
+        <a [routerLink]="['/home']" class="logo">
+          <img src="assets/images/logo.svg" alt="" class="app-logo" />
+          <h2>UV-Helper</h2>
+        </a>
+
+      <ul class="menu">
+        <li *ngFor="let item of menuItems; let i = index">
+          <div *ngIf="item.type !== 'separator'" routerLinkActive="open">
+            <a
+              matRipple
+              routerLink="/{{ item.state }}"
+              *ngIf="item.type === 'link'"
+            >
+              <mat-icon>{{ item.icon }}</mat-icon>
+              {{ item.name | translate }}
+            </a>
+          </div>
+        </li>
+      </ul>
+      <span fxFlex></span>
+
+      <mat-select
+        placeholder=""
+        id="langToggle"
+        [style.width]="'auto'"
+        name="currentLang"
+        [(ngModel)]="currentLang"
+        (selectionChange)="setLang()"
+        class="topbar-button-right"
+      >
+        <mat-option
+          *ngFor="let lang of availableLangs"
+          [value]="lang.code"
+          ngDefaultControl
+          >{{ lang.name | translate }}</mat-option
+        >
+      </mat-select>
+
+      <div *ngIf="activeUserSelector$ | async">
+        <div>
+          <span>{{ (activeUserSelector$ | async).fullName }}</span>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="accountMenu"
+            class="topbar-button-right mr-16 img-button"
+          >
+            <mat-icon>account_box</mat-icon>
+          </button>
+        </div>
+        <mat-menu #accountMenu="matMenu">
+          <!-- <button mat-menu-item [routerLink]="['/profile/overview']">
+            <mat-icon>account_box</mat-icon>
+            <span>Profile</span>
+          </button> -->
+          <button mat-menu-item routerLink="profile/table">
+            <mat-icon>table_chart</mat-icon>
+            <span>Таблиця</span>
+          </button>
+          <!-- <button mat-menu-item [routerLink]="['/profile/settings']">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button> -->
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Вийти</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="auth-buttons" *ngIf="!(activeUserSelector$ | async)">
+        <a mat-raised-button color="primary" routerLink="sessions/signin"
+          >Вхід</a
+        >
+        <a mat-raised-button color="accent" routerLink="sessions/signup"
+          >Реєстрація</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

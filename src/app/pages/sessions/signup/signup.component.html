@@ -1,0 +1,123 @@
+<div class="page-wrap h-full slate">
+  <div class="session-form-hold">
+    <mat-progress-bar
+      [mode]="(isSubmitting$ | async) ? 'indeterminate' : 'determinate'"
+      class="session-progress"
+    ></mat-progress-bar>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center pt-8 pb-16">
+          <a [routerLink]="['/home']">
+            <img width="60px" src="assets/images/logo.svg" alt="" class="mb-8"
+          /></a>
+          <h2>Давайти розпочнемо</h2>
+          <p class="text-muted m-0">Зареєструйтесь, щоб користуватись нашим сервісом</p>
+        </div>
+
+        <p *ngIf="errorMsg$ | async" class="text-center">
+          <small class="text-red">{{ errorMsg$ | async }}</small>
+        </p>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                type="text"
+                name="fullName"
+                [formControl]="form.controls['fullName']"
+                placeholder="Ваше повне ім'я"
+                value=""
+              />
+            </mat-form-field>
+            <small
+              *ngIf="
+                form.controls['fullName'].hasError('required') &&
+                form.controls['fullName'].touched
+              "
+              class="form-error-msg"
+            >
+              Full name is required
+            </small>
+
+            <small
+              *ngIf="
+                form.controls['fullName'].hasError('fullName') &&
+                form.controls['fullName'].touched
+              "
+              class="form-error-msg"
+            >
+              Invalid full name
+            </small>
+          </div>
+          <div class="">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                type="email"
+                name="email"
+                [formControl]="form.controls['email']"
+                placeholder="Ваше емейл"
+                value=""
+              />
+            </mat-form-field>
+            <small
+              *ngIf="
+                form.controls['email'].hasError('required') &&
+                form.controls['email'].touched
+              "
+              class="form-error-msg"
+            >
+              Email is required
+            </small>
+
+            <small
+              *ngIf="
+                form.controls['email'].hasError('email') &&
+                form.controls['email'].touched
+              "
+              class="form-error-msg"
+            >
+              Invalid email address
+            </small>
+          </div>
+
+          <div class="">
+            <mat-form-field class="full-width">
+              <input
+                type="password"
+                name="password"
+                matInput
+                [formControl]="form.controls['password']"
+                placeholder="Пароль"
+                value=""
+              />
+            </mat-form-field>
+            <small
+              *ngIf="
+                form.controls['password'].hasError('required') &&
+                form.controls['password'].touched
+              "
+              class="form-error-msg"
+            >
+              Password is required
+            </small>
+          </div>
+
+          <button
+            mat-raised-button
+            class="mat-primary full-width mb-16"
+            [disabled]="form.invalid"
+          >
+            Зареєструватись
+          </button>
+          <div class="text-center">
+            <a [routerLink]="'/sessions/signin'" class="text-center full-width"
+              >Ввйти в існуючий акаунт</a
+            >
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

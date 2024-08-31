@@ -1,0 +1,35 @@
+<div class="app-admin-wrap">
+  <app-header-top></app-header-top>
+  <!-- Main Container -->
+  <mat-sidenav-container
+    class="app-admin-container mat-drawer-transition topbar-white"
+    [ngClass]="adminContainerClasses"
+  >
+    <mat-sidenav-content>
+      <app-sidebar-top *ngIf="layoutConf.isMobile"></app-sidebar-top>
+
+      <!-- App content -->
+      <div class="rightside-content-hold" id="rightside-content-hold">
+        <!-- View Loader -->
+        <div
+          class="view-loader"
+          *ngIf="isModuleLoading"
+          style="position: fixed"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
+          <div class="spinner">
+            <div class="double-bounce1 mat-bg-accent"></div>
+            <div class="double-bounce2 mat-bg-primary"></div>
+          </div>
+        </div>
+        <!-- View outlet -->
+        <div class="container-dynamic">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+    <matx-notifications2></matx-notifications2>
+  </mat-sidenav-container>
+  <app-footer class="footer-slate"></app-footer>
+</div>

@@ -1,0 +1,60 @@
+.v-room {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #000000;
+  height: 150px;
+}
+
+.h-room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #000000;
+  height: 250px;
+}
+
+.step {
+  flex: 0 0 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  row-gap: 50px;
+  padding: 10px;
+}
+
+.v-lamp {
+  display: block;
+  height: 50px;
+  width: 10px;
+  border-right: 1px solid #000000;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  background-color: #ee70ff;
+}
+
+.h-lamp {
+  display: block;
+  height: 10px;
+  width: 100px;
+  border-right: 1px solid #000000;
+  border-left: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  background-color: #ee70ff;
+}
+
+.step_chip {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 30%;
+}
+
+mat-chip {
+  cursor: default;
+}
+
+table {
+  width: 100%;
+}

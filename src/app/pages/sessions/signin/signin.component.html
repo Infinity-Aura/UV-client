@@ -1,0 +1,87 @@
+<div class="page-wrap h-full slate">
+  <div class="session-form-hold">
+    <mat-progress-bar
+      [mode]="(isSubmitting$ | async) ? 'indeterminate' : 'determinate'"
+      class="session-progress"
+    ></mat-progress-bar>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center pt-8 pb-16">
+          <a [routerLink]="['/home']">
+            <img width="60px" src="assets/images/logo.svg" alt="" class="mb-8"
+          /></a>
+          <p class="text-muted m-0">Ввійдіть у Ваш акаунт</p>
+        </div>
+
+        <p *ngIf="errorMsg$ | async" class="text-center">
+          <small class="text-red">{{ errorMsg$ | async }}</small>
+        </p>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                name="email"
+                [formControl]="form.controls['email']"
+                placeholder="Емейл"
+                required
+              />
+            </mat-form-field>
+            <small
+              *ngIf="
+                form.controls['email'].hasError('required') &&
+                form.controls['email'].touched
+              "
+              class="form-error-msg"
+            >
+              Email is required
+            </small>
+          </div>
+
+          <div class="">
+            <mat-form-field class="full-width">
+              <input
+                type="password"
+                name="password"
+                matInput
+                [formControl]="form.controls['password']"
+                placeholder="Пароль"
+                value=""
+              />
+            </mat-form-field>
+            <small
+              *ngIf="
+                form.controls['password'].hasError('required') &&
+                form.controls['password'].touched
+              "
+              class="form-error-msg"
+            >
+              Password is required
+            </small>
+          </div>
+          <button
+            mat-raised-button
+            class="mat-primary full-width mb-16"
+            [disabled]="form.invalid"
+          >
+            Ввійти
+          </button>
+          <div class="text-center">
+            <!-- <a
+              [routerLink]="'/sessions/forgot-password'"
+              class="mat-primary text-center full-width"
+              >Forgot password</a
+            > -->
+            <span fxFlex></span>
+            <a
+              [routerLink]="'/sessions/signup'"
+              class="mat-primary text-center full-width"
+              >Створити новий акаунт</a
+            >
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

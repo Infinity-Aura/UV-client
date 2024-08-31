@@ -1,0 +1,38 @@
+.step {
+  padding: 10px;
+}
+
+.step-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.measure-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px
+}
+
+.first-step {
+  display: flex;
+  justify-content: space-around;
+}
+
+.second-step {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.second-step_row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tab-group {
+  margin-bottom: 10px
+}
+
+.date-picker {
+  display: flex;
+}
